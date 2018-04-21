@@ -1,32 +1,36 @@
 # Script generated with Bloom
-pkgdesc="ROS - @(Description)"
-@[if Homepage and Homepage != '']url='@(Homepage)'@[end if]
+pkgdesc="ROS - As a part of rtmros_nextage package that is a ROS interface for <a href="http://nextage.kawada.jp/en/">Nextage</a> dual-armed robot from Kawada Robotics Inc, this package provides its 3D model that can be used in simulation and <a href="http://ros.org/wiki/moveit">MoveIt!</a>-based motion planning tasks."
+url='http://ros.org/wiki/nextage_description'
 
-pkgname='@(Package)'
-pkgver='@(Version)_@(Pkgrel)'
+pkgname='ros-kinetic-nextage-description'
+pkgver='0.8.4_1'
 pkgrel=1
 arch=('any')
-license=(@[for p in Licenses]'@p'@\n@[end for])
+license=('BSD'
+)
 
-makedepends=(@[for p in BuildDepends]'@p'@\n@[end for])
+makedepends=('ros-kinetic-catkin'
+'ros-kinetic-urdf'
+)
 
-depends=(@[for p in Depends]'@p'@\n@[end for])
+depends=('ros-kinetic-urdf'
+)
 
-conflicts=(@[for p in Conflicts]'@p'@\n@[end for])
-replaces=(@[for p in Replaces]'@p'@\n@[end for])
+conflicts=()
+replaces=()
 
-_dir=@(Name)
+_dir=nextage_description
 source=()
 md5sums=()
 
 prepare() {
-    cp -R $startdir/@(Name) $srcdir/@(Name)
+    cp -R $startdir/nextage_description $srcdir/nextage_description
 }
 
 build() {
   # Use ROS environment variables
   source /usr/share/ros-build-tools/clear-ros-env.sh
-  [ -f /opt/ros/@(ROSDistribution)/setup.bash ] && source /opt/ros/@(ROSDistribution)/setup.bash
+  [ -f /opt/ros/kinetic/setup.bash ] && source /opt/ros/kinetic/setup.bash
 
   # Create build directory
   [ -d ${srcdir}/build ] || mkdir ${srcdir}/build
@@ -39,7 +43,7 @@ build() {
   cmake ${srcdir}/${_dir} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCATKIN_BUILD_BINARY_PACKAGE=ON \
-        -DCMAKE_INSTALL_PREFIX=/opt/ros/@(ROSDistribution) \
+        -DCMAKE_INSTALL_PREFIX=/opt/ros/kinetic \
         -DPYTHON_EXECUTABLE=/usr/bin/python2 \
         -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 \
         -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so \
